@@ -1,4 +1,4 @@
-name: Deploy React App to Droplet
+name: Desplegar Aplicación Vite/React en Droplet
 
 on:
   push:
@@ -9,28 +9,34 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x]
-
     steps:
-    - name: Checkout code
+    - name: Checkout del código
       uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
 
-    - name: SSH and deploy
+    - name: Instalar Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Instalar dependencias y construir
+      run: |
+        npm install
+        npm run build
+
+    - name: Transferir archivos al servidor
+      uses: appleboy/scp-action@v0.1.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        source: "dist/*"
+        target: "/root/bucket-front/dist/"
+        overwrite: true
+
+    - name: Ejecutar comandos en el servidor
       uses: appleboy/ssh-action@v0.1.10
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         script: |
-          cd ~/bucket-front
-          git pull origin main
-          npm install
-          npm run build 
-          cp -R dist/* /root/bucket-front/dist/
