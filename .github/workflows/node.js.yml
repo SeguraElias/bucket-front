@@ -40,8 +40,15 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         script: |
-          echo "Despliegue completado correctamente"
-          # Aquí puedes reiniciar un servicio, limpiar archivos viejos, etc.
-          # Por ejemplo, si usas Nginx o PM2:
-          # sudo systemctl restart nginx
-          # pm2 restart app-name
+          if ! command -v node &> /dev/null; then
+            curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+            sudo apt-get install -y nodejs npm
+          fi
+          
+          node -v
+          npm -v
+          cd  /root/bucket-front
+
+          git pull origin main
+          npm install
+          npm run build
