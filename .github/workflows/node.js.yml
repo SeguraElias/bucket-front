@@ -40,7 +40,8 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         script: |
-          cd /root/bucket-front
-          git pull origin main
-          npm install
-          npm run build
+          echo "Despliegue completado correctamente"
+          # Aquí puedes reiniciar un servicio, limpiar archivos viejos, etc.
+          # Por ejemplo, si usas Nginx o PM2:
+          # sudo systemctl restart nginx
+          # pm2 restart app-name
