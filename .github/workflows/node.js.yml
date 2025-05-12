@@ -40,3 +40,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         script: |
+          cd /root/bucket-front
+          git pull origin main
+          npm install
+          npm run build
