@@ -28,7 +28,7 @@ const ImageUploader = () => {
 
   return (
     <div className="upload-container">
-      <h2 className="upload-title">Subidor de Imágenes</h2>
+      <h2 className="upload-title">Subir imagen</h2>
       
       <div className={`upload-area ${imagePreview ? 'has-preview' : ''}`}>
         {imagePreview ? (
