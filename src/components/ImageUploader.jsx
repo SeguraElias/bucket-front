@@ -45,7 +45,7 @@ const ImageUploader = () => {
         ) : (
           <>
             <FiImage className="upload-icon" />
-            <p className="upload-text">Arrastra y suelta tu imagen aquí</p>
+            <p className="upload-text">Arrastra y suelta tu imagen</p>
             <p className="upload-subtext">o</p>
           </>
         )}
