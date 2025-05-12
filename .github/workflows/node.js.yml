@@ -1,9 +1,9 @@
-name: Deploy Angular App to Droplet
+name: Deploy React App to Droplet
 
 on:
   push:
     branches:
-      - master  
+      - main  
 
 jobs:
   deploy:
@@ -20,8 +20,8 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         script: |
-          cd ~/S3ImageFrontEndUpload
-          git pull origin master
+          cd ~/bucket-front
+          git pull origin main
           npm install
           ng build --configuration=production
-          cp -R dist/s3-image-upload/* /var/www/angular-app/
+          cp -R dist/* /root/bucket-front/dist/
