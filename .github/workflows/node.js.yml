@@ -23,5 +23,5 @@ jobs:
           cd ~/bucket-front
           git pull origin main
           npm install
-          ng build --configuration=production
+          npm run build 
           cp -R dist/* /root/bucket-front/dist/
